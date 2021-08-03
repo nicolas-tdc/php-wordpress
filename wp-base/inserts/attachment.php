@@ -11,10 +11,9 @@
  * @param bool $pdf_to_img
  * 
  * @return mixed
- * 
  */
 function ntdc_insert_attachment( $post_id, $file_name, $file_url, $file_mimetype, $pdf_to_img = false ){
-
+    // File handling
     $file_datas = ntdc_format_file_datas( $file_name, $file_url, $file_mimetype );
     $file = $file_datas['file_dir_path'] . '/' . $file_datas['name'] . '.' . $file_datas['ext'];
     file_put_contents( $file, $file_datas['contents'] );
@@ -39,7 +38,6 @@ function ntdc_insert_attachment( $post_id, $file_name, $file_url, $file_mimetype
         require_once( ABSPATH . 'wp-admin/includes/image.php' );
         $attach_data = wp_generate_attachment_metadata( $attach_id, $file );
         wp_update_attachment_metadata( $attach_id, $attach_data );
-
         return $attach_id;
     }
 
@@ -54,10 +52,8 @@ function ntdc_insert_attachment( $post_id, $file_name, $file_url, $file_mimetype
  * @param string $file_mimetype
  * 
  * @return array $file_datas
- * 
  */
 function ntdc_format_file_datas( $file_name, $file_url, $file_mimetype ) {
-
     $mimetype_ext = [
         'application/pdf' => 'pdf',
         'image/jpeg'      => 'jpeg',
@@ -74,7 +70,6 @@ function ntdc_format_file_datas( $file_name, $file_url, $file_mimetype ) {
     ];
 
     return $file_datas;
-
 }
 
 /**
@@ -85,9 +80,9 @@ function ntdc_format_file_datas( $file_name, $file_url, $file_mimetype ) {
  * @param string $file_path
  * @param string $file_name
  * 
+ * @return void
  */
 function ntdc_transform_pdf_to_img( &$file, $file_dir_path, $file_name ) {
-
     $pdf_thumbnail = new imagick();
     $pdf_thumbnail->setResolution( 400, 400 );
     $pdf_thumbnail->readImage( $file . '[0]' );
@@ -97,5 +92,4 @@ function ntdc_transform_pdf_to_img( &$file, $file_dir_path, $file_name ) {
 
     $file = $file_dir_path . '/' . $file_name . '.jpg';
     $pdf_thumbnail->writeImage( $file );
-
 }
