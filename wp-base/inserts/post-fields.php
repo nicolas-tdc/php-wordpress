@@ -60,9 +60,29 @@ function ntdc_basic_fields_values_handler( &$basic_values ) {
  * @return void
  */
 function ntdc_basic_fields_values_formatter( &$basic_values ) {
-    // Switch case on basic field key
-    // Sanitize and format
-    // status, type, title, timestamp, content
+    foreach ( $basic_values as $basic_key => $basic_value ) {
+        switch ( $basic_key ) {
+            case 'status':
+                // sanitize + str to lower + replace ' ' by '-'
+                break;
+
+            case 'type':
+                // sanitize + str to lower + replace ' ' by '-'
+                break;
+
+            case 'title':
+                // sanitize + ucfirst
+                break;
+
+            case 'timestamp':
+                // date( 'Y-m-d H:i:s', (int) $timestamp );
+                break;
+
+            case 'content':
+                // sanitize
+                break;
+        }
+    }
 }
 
 /**
@@ -88,7 +108,19 @@ function ntdc_add_custom_fields_values_to_post_args( &$post_args, $meta_values )
  * @return void
  */
 function ntdc_custom_fields_values_handler( &$meta_values ) {
-    // Foreach meta_values
-    // Switch case on field type
-    // Format and sanitize
+    foreach ( $meta_values as $meta_key => $meta_value ) {
+        $field_object = get_field_object( $meta_key );
+        $field_type = $field_object['type'];
+
+        // $types_sanitize = ['text', 'wysiwyg'];
+        // if( in_array( $field_type, $types_sanitize) ) {
+        //     // sanitize
+        // }
+        // // OR
+        // switch ( $field_type ) {
+        //     case 'text':
+        //         // sanitize
+        //         break;
+        // }
+    }
 }
