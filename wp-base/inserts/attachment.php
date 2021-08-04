@@ -51,7 +51,7 @@ function ntdc_insert_attachment( $post_id, $file_name, $file_url, $file_mimetype
  * @param string $file_url
  * @param string $file_mimetype
  * 
- * @return array $file_datas
+ * @return array
  */
 function ntdc_format_file_datas( $file_name, $file_url, $file_mimetype ) {
     $mimetype_ext = [
